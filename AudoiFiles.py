@@ -1,5 +1,4 @@
-import os, sys,eyed3, argparse
-import PySimpleGUI as sg
+import os, sys,eyed3
 from posixpath import pardir
 import Logg
 from colorama import Fore
@@ -18,16 +17,13 @@ class AudioFile():
 path = ""
 files = []
 
-# def __init__(self,path, files):
-#     self.path = path
-#     self.files = files
+
 
 
 def sort(path,out = "c"):
     audio_arr= []
     os.chdir(path)
     files = os.listdir()
-    sg.Print("dff")
     try:
         Logg.pr("Поиск файлов в " + path+"\n",out=out)
 
@@ -60,24 +56,27 @@ def sort(path,out = "c"):
                 else:
                     continue
 
-
+        Logg.pr("Создание каталогов и перемещение файлов...",out=out)
         for i in audio_arr:
             name = i.fileName
             art = i.artist
             pathName = i.filePath
             try:
                 os.replace(pathName,art+"/"+name)
-                Logg.pr(pathName+" ---> "+ art,"o",out)
+                Logg.pr("Файл перемещен: "+pathName+" ---> "+ art,"o",out)
             except(Exception):
                 try:
                     os.mkdir(path+"/"+art)
+                    Logg.pr("Создан каталог: "+path+"/"+art,"o",out)
                     os.replace(pathName,art+"/"+name)
+                    Logg.pr("Файл перемещен: "+pathName+" ---> "+ art,"o",out)
                 except(Exception):
                     Logg.pr(pathName+"    -x->   "+ art,"e",out)
 
     
         Logg.pr(path,"o",out)
+        Logg.pop(path,"o")
     except(Exception):
-            Logg.pr("err","e",out)
-
+        Logg.pr("err","e",out)
+        Logg.pop("err","e")
 

@@ -22,6 +22,18 @@ def pr(message,typeMessage = "n",out = "c"):
             sg.Print("[ATTENTION]  "+message)
         elif typeMessage == "e":
             sg.Print("[ERROR]  "+message)
+            sg.popup_error(message,title="Err")
         else:
             sg.Print(message)
     
+def pop(message,typeMessage = "n"):
+    if typeMessage == "n":
+        sg.popup(message)
+    elif typeMessage == "o":
+        sg.popup(message,title="ok")
+    elif typeMessage == "a":
+        sg.popup(message,title="attention")
+    elif typeMessage == "e":
+        sg.popup(message,title="error")
+    else:
+        sg.popup(message)

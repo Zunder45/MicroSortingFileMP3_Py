@@ -1,10 +1,10 @@
-import os, sys, eyed3, argparse
+import os, argparse
 import AudoiFiles, GUI
 
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-p","--path", help="Directory path")# добавление аргументов
-parser.add_argument("-g","--gui", help="GUI", action="store_const", const="True")
+parser.add_argument("-g","--gui", help="GUI", action="store_const", const="True") 
 
 arg = parser.parse_args()
 
@@ -12,15 +12,15 @@ arg = parser.parse_args()
 
 
 if arg.gui:
-    GUI.run()
+    if arg.path == None: 
+        GUI.run()
+    else:
+        GUI.run(arg.path)
+
 else:
-    if arg.path == None: # Если флаг -p пусть то:
-        # files = os.listdir() # Список файлов тек каталога 
+    if arg.path == None: # Если флаг -p пусть то 
         path = os.getcwd() # Получение пути текущего каталога
         AudoiFiles.sort(path)
     else:
-        # os.chdir(arg.path) # Переход в директорию 
-        # # files = os.listdir() # Массив с файлами
-        # path = os.getcwd() # Получение пути текущего каталога
         AudoiFiles.sort(arg.path)
 

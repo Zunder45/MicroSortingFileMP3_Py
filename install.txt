@@ -1,5 +1,7 @@
 sudo pacman -S tk
 
+install webbrowser, colorama, eyed3, argparse 
+
 pip install pysimplegui
 or
 pip3 install pysimplegui
