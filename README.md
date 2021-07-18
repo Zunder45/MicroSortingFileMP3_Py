@@ -16,43 +16,78 @@ Python версия ___MicroSortingFileMP3___ была разаботана дл
 ***
 ## Установа 
 
-Устанавливаем [python](https://www.python.org/).
+1. Устанавливаем [python](https://www.python.org/).
 
-Устанавливаем нужные для работоспосоробности библеотеки.
+2.  Устанвливаем pip.
+
+- Ubuntu:
 
 ```
-pip install pysimplegui, colorama, eyed3, argparse 
+$ sudo apt install pip
+```
+
+- Arch:
+
+```
+pacman -S python-pip
+```
+
+
+
+3.  Устанавливаем нужные для работоспосоробности библеотеки.
+
+```
+$ pip install pysimplegui, colorama, eyed3, argparse 
 ``` 
 
-Скачиваним с  репозитория github файлы программы.
+4. Ставим tkinter
+- Ubuntu:
+
+```
+$ sudo apt-get install python3-tk
+```
+
+- Arch:
+
+```
+$ sudo pacman -S tk
+```
+
+
+5. Скачиваним с  репозитория github файлы программы.
 
 ``` 
-git clone  https://github.com/Zunder45/MicroSortingFileMP3_Py.git 
-cd microMP3_Py // переходим в директорию программы
+$ git clone  https://github.com/Zunder45/MicroSortingFileMP3_Py.git 
+$ cd microMP3_Py // переходим в директорию программы
 ```
 
 ## Запуск
 
-Запуск происходит через файл Main.py (графика и консоль) или Consl.py  (без использования графики).
+Запуск происходит через файл Main.py (графика и консоль) или Consl.py  (без зависимостей к tkinter).
 
 
 <p id="cl">Запуск консольной версии:</p>
+
 ```
-python3 Main.py 
+$ python3 Main.py 
 или 
-python3 Consl.py  
-```
-<p id="gr">Запуск графической версии:</p>
-```
-python3 Main.py -g   //или --gui
-```
-***
-Сортировка файлов происходи в том каталоге, где находится программы или с помощью аргумента **(-p)** можно указать точное местоположение.
-```
-python3 Main.py -p *Путь*
+$ python3 Consl.py  
 ```
 
-Если добавть **-p** к **-g**, то поть указанный в консоле будет указан в полу ввода пути к каталогу.
+<p id="gr">Запуск графической версии:</p>
+
+```
+$ python3 Main.py -g   //или --gui
+```
+
+***
+Сортировка файлов происходи в том каталоге, где находится программы или с помощью аргумента **(-p)** можно указать точное местоположение.
+
+```
+$ python3 Main.py -p *Путь*
+```
+
+Если добавть **-p** к **-g**, то поть указанный в консоле будет указан в поле ввода пути к каталогу.
 
 
 
