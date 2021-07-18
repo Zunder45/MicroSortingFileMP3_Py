@@ -78,5 +78,6 @@ def sort(path,out = "c"):
         Logg.pop(path,"o")
     except(Exception):
         Logg.pr("err","e",out)
-        Logg.pop("err","e")
+        if out == "g":
+            Logg.pop("err","e")
 
