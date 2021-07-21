@@ -1,8 +1,6 @@
 import PySimpleGUI as sg
-import tkinter
 import webbrowser
 import AudoiFiles
-import Logg
 
 
 def run(pathDirInput = ""):
