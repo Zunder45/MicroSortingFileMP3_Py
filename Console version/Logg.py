@@ -1,4 +1,3 @@
-from PySimpleGUI.PySimpleGUI import Titlebar
 from colorama import Fore
 
 def pr(message,typeMessage = "n"):
