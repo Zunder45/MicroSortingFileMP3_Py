@@ -64,7 +64,7 @@ sudo pacman -S tk
 git clone https://github.com/Zunder45/MicroSortingFileMP3_Py.git 
 ```
 
-Переходим в директорию программы
+6. Переходим в директорию программы
 
 ```sh
 cd MicroSortingFileMP3_Py 
