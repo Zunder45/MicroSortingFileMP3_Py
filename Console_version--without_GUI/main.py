@@ -1,6 +1,6 @@
 import os, sys, argparse
-import AudoiFiles,Logg
-
+import audoiFiles
+import logg
 
 
 parser = argparse.ArgumentParser()
@@ -22,11 +22,12 @@ if arg.f == None:
 else:
     pathFrom = arg.f
 
-AudoiFiles.scan(pathFrom,arg.unknown)
+
+audoiFiles.scan(pathFrom =  pathFrom,unknown= arg.unknown)
 
 if not arg.s:
     while(True):
-            Logg.pr("\nПродолжить?(д/н)") 
+            logg.pr("\nПродолжить?(д/н)") 
             inp = input()
             if inp == "" or inp == "д" or inp == "Д" or inp == "y" or inp == "Y":
                 break
@@ -35,4 +36,7 @@ if not arg.s:
             else:
                 continue
 
-AudoiFiles.sort(path)
+audoiFiles.sort(path = path)
+
+
+

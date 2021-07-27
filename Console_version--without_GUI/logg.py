@@ -1,5 +1,6 @@
 from colorama import Fore
 
+
 def pr(message,typeMessage = "n"):
     if typeMessage == "n":
         print(message)
