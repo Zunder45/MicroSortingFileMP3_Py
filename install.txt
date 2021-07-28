@@ -1,7 +1,0 @@
-sudo pacman -S tk
-
-pip install pysimplegui, colorama, eyed3, argparse 
-
-//pip install pysimplegui
-//or
-//pip3 install pysimplegui

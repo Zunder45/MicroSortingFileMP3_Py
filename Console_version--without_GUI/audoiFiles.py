@@ -19,12 +19,11 @@ getLogger().setLevel('ERROR')
 
 
 
-audio_arr = []
+__audio_arr = []
 
 
 def scan(pathFrom, unknown = False):
     try:
-
         os.chdir(pathFrom)
     except:
         logg.pr("Err 1 (Ошибка пути)","e")
@@ -37,23 +36,27 @@ def scan(pathFrom, unknown = False):
             fp = pathFrom+"/"+f
             if os.path.isdir(fp) != True and os.path.splitext(fp)[1] == ".mp3": # если это файл и имеет раширение .mp3
                 af = eyed3.load(fp)
-                if af.tag.artist != None: # если в фаеле указано имя артиста 
-                    auFl = __AudioFile(af.tag.artist, f, fp) # создаем объект 
-                    audio_arr.append(auFl) # добавляем его в массив
-                    logg.pr(auFl.filePath+"   ["+auFl.artist+"]","o")
-                else:
-                    if unknown:
-                        auFl = __AudioFile("Неизвестный исполнитель", f, fp)
-                        audio_arr.append(auFl)
-                        logg.pr(auFl.filePath+"   ["+auFl.artist+"]      !Артист не найден!","a")
+                try:
+                    if af.tag.artist != None: # если в фаеле указано имя артиста 
+                        auFl = __AudioFile(af.tag.artist, f, fp) # создаем объект 
+                        __audio_arr.append(auFl) # добавляем его в массив
+                        logg.pr(auFl.filePath+"   ["+auFl.artist+"]","o")
                     else:
-                        logg.pr(fp+"     !Артист не найден! Пропускаем!","a")
-        logg.pr("\nКоличество файлов: " + str(len(audio_arr))) 
+                        if unknown:
+                            auFl = __AudioFile("Неизвестный исполнитель", f, fp)
+                            __audio_arr.append(auFl)
+                            logg.pr(auFl.filePath+"   ["+auFl.artist+"]      !Артист не найден!","a")
+                        else:
+                            logg.pr(fp+"     !Артист не найден! Пропускаем!","a")
+                except:
+                    logg.pr("Err 4 (Проблема с файлом) "+fp,"e")
+        logg.pr("\nКоличество файлов: " + str(len(__audio_arr))) 
     except:
         logg.pr("Err 2 ","e")
         sys.exit(1)
-    if len(audio_arr) < 1:
+    if len(__audio_arr) < 1:
         sys.exit(1)
+        
 
 
 def sort(path):
@@ -64,7 +67,7 @@ def sort(path):
         logg.pr("Err 1 (Ошибка пути)","e")
         sys.exit(1)
     try:
-        for i in audio_arr:
+        for i in __audio_arr:
             name = i.fileName
             art = i.artist
             pathName = i.filePath
