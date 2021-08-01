@@ -28,21 +28,18 @@ else:
     pathFrom = arg.f
 
 if arg.gui == None:
-
-    audoiFiles.scan(pathFrom =  pathFrom,unknown= arg.unknown)
-
-    if not arg.s:
-        while(True):
-                logg.pr("\nПродолжить?(д/н)") 
-                inp = input()
-                if inp == "" or inp == "д" or inp == "Д" or inp == "y" or inp == "Y":
-                    break
-                elif  inp == "н" or inp == "Н" or inp == "n" or inp == "N":
-                    sys.exit(1)
-                else:
-                    continue
-
-    audoiFiles.sort(path = path)
-
+    logg.out = "c"
+    if audoiFiles.scan(pathFrom =  pathFrom,unknown= arg.unknown):
+        if not arg.s:
+            while(True):
+                    logg.pr("\nПродолжить?(д/н)") 
+                    inp = input()
+                    if inp == "" or inp == "д" or inp == "Д" or inp == "y" or inp == "Y":
+                        break
+                    elif  inp == "н" or inp == "Н" or inp == "n" or inp == "N":
+                        sys.exit(0)
+                    else:
+                        continue
+        audoiFiles.sort(path = path)
 else: 
     gui.run(pathFromDir = pathFrom,pathDirInput = path)

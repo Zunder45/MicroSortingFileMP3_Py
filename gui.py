@@ -19,20 +19,25 @@ def run(pathFromDir,pathDirInput = ""):
 
     window = sg.Window('MicroSortingFileMP3 gui', layout, size=(450,220),background_color="#1E1E1E")
 
-    
-
     while True:
         event, values = window.read()
         if event == sg.WIN_CLOSED or event == 'Закрыть': 
             break
         if event == 'Начать':
             if values["pathDir"] != "":
-                audoiFiles.scan(values["fromDir"], values["checkAutor"],out="g")
-                if sg.popup_yes_no('Продолжить?') == "Yes":
-                    audoiFiles.sort(values["pathDir"],out="g")
-                    logg.pop("OK  "+values["pathDir"],"o")
-                else:
-                    audoiFiles.clear()
+                logg.out = "g"
+
+                if audoiFiles.scan(values["fromDir"], values["checkAutor"]):
+            
+                    if sg.popup_yes_no('Продолжить?') == "Yes":
+                    
+                        audoiFiles.sort(values["pathDir"])
+                        
+                        logg.pop("OK  "+values["pathDir"],"o")
+                    
+                    else:
+                        audoiFiles.clear()
+        
         if event == "link":
             webbrowser.open('https://github.com/Zunder45/MicroSortingFileMP3_Py.git')
                 

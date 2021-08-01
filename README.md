@@ -44,9 +44,7 @@ pip install pysimplegui
 
 Для консольной и графиеской
 ```sh
-pip install colorama
-pip install eyed3
-pip install argparse
+pip install colorama; pip install eyed3; pip install argparse;
 ``` 
 
 4. Ставим **tkinter** (Для графической версии)

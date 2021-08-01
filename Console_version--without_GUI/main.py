@@ -32,7 +32,7 @@ if not arg.s:
             if inp == "" or inp == "д" or inp == "Д" or inp == "y" or inp == "Y":
                 break
             elif  inp == "н" or inp == "Н" or inp == "n" or inp == "N":
-                sys.exit(1)
+                sys.exit(0)
             else:
                 continue
 
