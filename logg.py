@@ -1,42 +1,38 @@
 import PySimpleGUI as sg
-from PySimpleGUI.PySimpleGUI import Titlebar
 from colorama import Fore
 
-out = "c"
+class Log():
 
-def pr(message,typeMessage = "n"):
-    if out == "c":
-        if typeMessage == "n":
-            print(message)
-        elif typeMessage == "o":
-            print(Fore.LIGHTGREEN_EX+"[OK]  "+message+Fore.WHITE)
-        elif typeMessage == "a":
-            print(Fore.LIGHTYELLOW_EX+"[ATTENTION]  "+message+Fore.WHITE)
-        elif typeMessage == "e":
-            print(Fore.LIGHTRED_EX,"[ERROR]  "+message+Fore.WHITE)
-        else:
-            print(message)
-    elif out == "g":
-        if typeMessage == "n":
-            sg.Print(message)
-        elif typeMessage == "o":
-            sg.Print("[OK]  "+message)
-        elif typeMessage == "a":
-            sg.Print("[ATTENTION]  "+message)
-        elif typeMessage == "e":
-            sg.Print("[ERROR]  "+message)
-            sg.popup_error(message,title="Err")
-        else:
-            sg.Print(message)
-    
-def pop(message,typeMessage = "n"):
-    if typeMessage == "n":
-        sg.popup(message)
-    elif typeMessage == "o":
-        sg.popup(message,title="ok")
-    elif typeMessage == "a":
-        sg.popup(message,title="attention")
-    elif typeMessage == "e":
-        sg.popup(message,title="error")
-    else:
-        sg.popup(message)
+
+    out = "c"
+
+    def __switch(self,message,typeMessage):
+            dictPrint = {
+                "n": message,
+                "o": Fore.LIGHTGREEN_EX + "[OK]  " + message + Fore.WHITE,
+                "a": Fore.LIGHTYELLOW_EX+"[ATTENTION]  " + message + Fore.WHITE,
+                "e": Fore.LIGHTRED_EX + "[ERROR]  " + message + Fore.WHITE
+            }
+            dictPrintNoColor = {
+                "n": message,
+                "o": "[OK]  " + message,
+                "a": "[ATTENTION]  " + message,
+                "e": "[ERROR]  " + message
+            }
+            if self.out == "c":
+                return dictPrint[typeMessage]
+            else:
+                return dictPrintNoColor[typeMessage]
+
+
+
+    def pr(self,message,typeMessage = "n"):
+
+        if self.out == "c":
+            print(self.__switch(message,typeMessage))
+        elif self.out == "g":
+            sg.Print(self.__switch(message,typeMessage))
+
+        
+    def pop(self,message,typeMessage = "n"):
+        sg.popup(self.__switch(message,typeMessage))

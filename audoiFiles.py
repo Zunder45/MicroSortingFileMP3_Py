@@ -1,95 +1,99 @@
 import os, sys,eyed3
-import logg
+from logg import Log
 from logging import getLogger
+
 
 getLogger().setLevel('ERROR')
 
 
 
-__audio_list = []
+class AudoiFiles():
+    __audio_list = []
+    __log = Log()
+   
+    def clear(self):
+        self.__audio_list.clear() 
 
-def clear():
-   __audio_list.clear() 
-
-def scan(pathFrom, unknown = False):
- 
-    try:
-        os.chdir(pathFrom)
-    except:
-        logg.pr("Err 1 (Ошибка пути)","e")
-        sys.exit(1)
+    def scan(self, pathFrom, unknown = False):
         
-    files = os.listdir(pathFrom)
-    logg.pr("Поиск файлов в " + pathFrom)
-    try:
-        for f in files:
-            fp = pathFrom+"/"+f
+        try:
+            os.chdir(pathFrom)
+        except:
+            self.__log.pr("Err 1 (Ошибка пути)","e")
+            sys.exit(1)
             
-            if os.path.isdir(fp) != True and os.path.splitext(fp)[1] == ".mp3": # если это файл и имеет раширение .mp3
-                af = eyed3.load(fp)
-                try:
-                    if af.tag.artist != None: # если в фаеле указано имя артиста 
-                        auFl = {
-                            'artist':af.tag.artist,
-                            'fileName':f,
-                            'pathName':fp
-                        }
-                        __audio_list.append(auFl) # добавляем его в массив
-                        logg.pr(auFl['pathName']+"   ["+auFl['fileName']+"]","o")
-
-                    else:
-                        if unknown:
+        files = os.listdir(pathFrom)
+        self.__log.pr("Поиск файлов в " + pathFrom)
+        try:
+            for f in files:
+                fp = pathFrom+"/"+f
+                
+                if os.path.isdir(fp) != True and os.path.splitext(fp)[1] == ".mp3": # если это файл и имеет раширение .mp3
+                    af = eyed3.load(fp)
+                    try:
+                        if af.tag.artist != None: # если в фаеле указано имя артиста 
                             auFl = {
-                                'artist':"Неизвестный исполнитель",
+                                'artist':af.tag.artist,
                                 'fileName':f,
                                 'pathName':fp
                             }
-                            __audio_list.append(auFl)
-                            logg.pr(auFl['pathName'] +"   ["+auFl['fileName']+"]      !Артист не найден!","a")
+                            self.__audio_list.append(auFl) # добавляем его в массив
+                            self.__log.pr(auFl['pathName']+"   ["+auFl['fileName']+"]","o")
+
                         else:
-                            logg.pr(fp+"     !Артист не найден! Пропускаем!","a")
-                except:
-                    logg.pr("Err 4 (Проблема с файлом) "+fp,"e")
+                            if unknown:
+                                auFl = {
+                                    'artist':"Неизвестный исполнитель",
+                                    'fileName':f,
+                                    'pathName':fp
+                                }
+                                self.__audio_list.append(auFl)
+                                self.__log.pr(auFl['pathName'] +"   ["+auFl['fileName']+"]      !Артист не найден!","a")
+                            else:
+                                self.__log.pr(fp+"     !Артист не найден! Пропускаем!","a")
+                    except:
+                        self.__log.pr("Err 4 (Проблема с файлом) "+fp,"e")
 
-        logg.pr("\nКоличество файлов: " + str(len(__audio_list))) 
-        
-    except:
-        logg.pr("Err 2 ","e")
-        sys.exit(1)
-    if len(__audio_list) < 1:
-        return False
-    return True
-        
+            self.__log.pr("\nКоличество файлов: " + str(len(self.__audio_list))) 
+            
+        except:
+            self.__log.pr("Err 2 ","e")
+            sys.exit(1)
+            
+        if len(self.__audio_list) < 1:
+            return False
+        return True
+            
 
 
-def sort(path):
-    logg.pr("Создание каталогов и перемещение файлов...")
-    try:
-        os.chdir(path)
-    except:
-        logg.pr("Err 1 (Ошибка пути)","e")
-        sys.exit(1)
-    try:
-        for i in __audio_list:
-            name = i['fileName']
-            art = i['artist']
-            pathName = i['pathName']
-            try:
-                os.replace(pathName,path+"/"+art+"/"+name)
-                logg.pr(pathName+" ---> "+ art,"o")
-            except(Exception):
-                
+    def sort(self, path):
+        self.__log.pr("Создание каталогов и перемещение файлов...")
+        try:
+            os.chdir(path)
+        except:
+            self.__log.pr("Err 1 (Ошибка пути)","e")
+            sys.exit(1)
+        try:
+            for i in self.__audio_list:
+                name = i['fileName']
+                art = i['artist']
+                pathName = i['pathName']
                 try:
-                    os.mkdir(path+"/"+art)
-                    logg.pr("Создан каталог: "+path+"/"+art,"o")
                     os.replace(pathName,path+"/"+art+"/"+name)
-                    logg.pr(pathName+" ---> "+ art,"o")
+                    self.__log.pr(pathName+" ---> "+ art,"o")
                 except(Exception):
-                    logg.pr(pathName+"    -x->   "+ art,"e")
+                    
+                    try:
+                        os.mkdir(path+"/"+art)
+                        self.__log.pr("Создан каталог: "+path+"/"+art,"o")
+                        os.replace(pathName,path+"/"+art+"/"+name)
+                        self.__log.pr(pathName+" ---> "+ art,"o")
+                    except(Exception):
+                        self.__log.pr(pathName+"    -x->   "+ art,"e")
 
 
-        logg.pr("Готово","o")
-    except(Exception):
-        logg.pr("err 3","e")
-        sys.exit(1)
-    __audio_list.clear()
+            self.__log.pr("Готово","o")
+        except(Exception):
+            self.__log.pr("err 3","e")
+            sys.exit(1)
+        self.__audio_list.clear()
