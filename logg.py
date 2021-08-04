@@ -10,9 +10,9 @@ nocolor = False
 def __switch(message,typeMessage):
         dictPrint = {
             "n": message,
-            "o": Fore.LIGHTGREEN_EX + "[OK]  " + message + Fore.WHITE,
-            "a": Fore.LIGHTYELLOW_EX+"[ATTENTION]  " + message + Fore.WHITE,
-            "e": Fore.LIGHTRED_EX + "[ERROR]  " + message + Fore.WHITE
+            "o": Fore.LIGHTGREEN_EX + "[OK]  " + message + Fore.RESET,
+            "a": Fore.LIGHTYELLOW_EX+"[ATTENTION]  " + message + Fore.RESET,
+            "e": Fore.LIGHTRED_EX + "[ERROR]  " + message + Fore.RESET
         }
         dictPrintNoColor = {
             "n": message,
