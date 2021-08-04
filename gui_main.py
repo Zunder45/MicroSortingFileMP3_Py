@@ -1,9 +1,5 @@
 import os
-from gui import Gui
+import gui 
 
-
-
-if __name__ == "__main__":
-    gui = Gui()
-    path = os.getcwd()
-    gui.run(path,path)
+path = os.getcwd()
+gui.run(path,path)

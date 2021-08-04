@@ -1,10 +1,5 @@
-import PySimpleGUI as sg
 from colorama import Fore
 
-
-
-
-out = "c"
 nocolor = False
 
 def __switch(message,typeMessage):
@@ -20,23 +15,9 @@ def __switch(message,typeMessage):
             "a": "[ATTENTION]  " + message,
             "e": "[ERROR]  " + message
         }
-        if out == "c" and not nocolor:
+        if not nocolor:
             return dictPrint[typeMessage]
-        elif nocolor:
-            return dictPrintNoColor[typeMessage]
         else:
             return dictPrintNoColor[typeMessage]
-
-
-
-
 def pr(message,typeMessage = "n"):
-
-    if out == "c":
         print(__switch(message,typeMessage))
-    elif out == "g":
-        sg.Print(__switch(message,typeMessage))
-
-    
-def pop(message,typeMessage = "n"):
-    sg.popup(__switch(message,typeMessage))
