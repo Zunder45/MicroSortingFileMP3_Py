@@ -1,6 +1,4 @@
 import os, argparse, sys
-
-from PySimpleGUI.PySimpleGUI import main
 from logg import Log
 from audoiFiles import AudoiFiles
 from gui import Gui
@@ -23,6 +21,7 @@ class Main():
 
 
         gui = Gui()
+        
 
         if arg.path == None: # Если флаг -p пусть то 
             path = os.getcwd() # Получение пути текущего каталога

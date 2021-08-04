@@ -26,7 +26,7 @@ class AudoiFiles():
         self.__log.pr("Поиск файлов в " + pathFrom)
         try:
             for f in files:
-                fp = pathFrom+"/"+f
+                fp = os.path.join(pathFrom,f)
                 
                 if os.path.isdir(fp) != True and os.path.splitext(fp)[1] == ".mp3": # если это файл и имеет раширение .mp3
                     af = eyed3.load(fp)
@@ -38,7 +38,7 @@ class AudoiFiles():
                                 'pathName':fp
                             }
                             self.__audio_list.append(auFl) # добавляем его в массив
-                            self.__log.pr(auFl['pathName']+"   ["+auFl['fileName']+"]","o")
+                            self.__log.pr(auFl['pathName']+"   ["+auFl['artist']+"]","o")
 
                         else:
                             if unknown:
@@ -48,7 +48,7 @@ class AudoiFiles():
                                     'pathName':fp
                                 }
                                 self.__audio_list.append(auFl)
-                                self.__log.pr(auFl['pathName'] +"   ["+auFl['fileName']+"]      !Артист не найден!","a")
+                                self.__log.pr(auFl['pathName'] +"   ["+auFl['artist']+"]      !Артист не найден!","a")
                             else:
                                 self.__log.pr(fp+"     !Артист не найден! Пропускаем!","a")
                     except:
@@ -71,7 +71,7 @@ class AudoiFiles():
         try:
             os.chdir(path)
         except:
-            self.__log.pr("Err 1 (Ошибка пути)","e")
+            self.__log.pr("Err 1 (Ошибка пути)", "e")
             sys.exit(1)
         try:
             for i in self.__audio_list:
@@ -79,21 +79,22 @@ class AudoiFiles():
                 art = i['artist']
                 pathName = i['pathName']
                 try:
-                    os.replace(pathName,path+"/"+art+"/"+name)
-                    self.__log.pr(pathName+" ---> "+ art,"o")
+                    os.replace(pathName, os.path.join(path,art,name))
+                    self.__log.pr(pathName + " ---> " + art, "o")
                 except(Exception):
                     
                     try:
-                        os.mkdir(path+"/"+art)
-                        self.__log.pr("Создан каталог: "+path+"/"+art,"o")
-                        os.replace(pathName,path+"/"+art+"/"+name)
-                        self.__log.pr(pathName+" ---> "+ art,"o")
+                        os.mkdir(os.path.join(path,art))
+                        self.__log.pr("Создан каталог: " + os.path.join(path,art), "o")
+                        os.replace(pathName, os.path.join(path,art,name))
+                        self.__log.pr(pathName + " ---> " + art, "o")
                     except(Exception):
-                        self.__log.pr(pathName+"    -x->   "+ art,"e")
+                        self.__log.pr(pathName + "    -x->   " + art, "e")
 
 
-            self.__log.pr("Готово","o")
+            self.__log.pr("Готово", "o")
         except(Exception):
-            self.__log.pr("err 3","e")
+            self.__log.pr("err 3", "e")
             sys.exit(1)
         self.__audio_list.clear()
+        return True

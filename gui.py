@@ -38,7 +38,7 @@ class Gui():
                         
                             self.__audoiFiles.sort(values["pathDir"])
                             
-                            self.__logg.pop("OK  "+values["pathDir"],"o")
+                            self.__logg.pop("OK  " + values["pathDir"],"o")
                         
                         else:
                             self.__audoiFiles.clear()

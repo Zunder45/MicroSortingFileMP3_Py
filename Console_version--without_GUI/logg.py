@@ -1,14 +1,15 @@
 from colorama import Fore
 
 
-def pr(message,typeMessage = "n"):
-    if typeMessage == "n":
-        print(message)
-    elif typeMessage == "o":
-        print(Fore.LIGHTGREEN_EX+"[OK]  "+message+Fore.WHITE)
-    elif typeMessage == "a":
-        print(Fore.LIGHTYELLOW_EX+"[ATTENTION]  "+message+Fore.WHITE)
-    elif typeMessage == "e":
-        print(Fore.LIGHTRED_EX,"[ERROR]  "+message+Fore.WHITE)
-    else:
-        print(message)
+class Log():
+    def __switch(self,message,typeMessage):
+            dictPrint = {
+                "n": message,
+                "o": Fore.LIGHTGREEN_EX + "[OK]  " + message + Fore.WHITE,
+                "a": Fore.LIGHTYELLOW_EX+"[ATTENTION]  " + message + Fore.WHITE,
+                "e": Fore.LIGHTRED_EX + "[ERROR]  " + message + Fore.WHITE
+            }
+            return dictPrint[typeMessage]
+            
+    def pr(self,message,typeMessage = "n"):
+            print(self.__switch(message,typeMessage))
