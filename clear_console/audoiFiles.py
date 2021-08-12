@@ -9,12 +9,19 @@ getLogger().setLevel('ERROR')
 
 __audio_list = []
 
-def scan(pathFrom, unknown = False):
-    try:
-        os.chdir(pathFrom)
-    except:
+def movePath(path):
+    if os.path.exists(path):
+        os.chdir(path)
+        return True
+    else: 
         log.pr("Err 1 (Ошибка пути)","e")
-        sys.exit(1)
+        return False
+
+
+def scan(pathFrom, unknown = False):
+    
+    if not movePath(pathFrom):
+        return False
         
     files = os.listdir(pathFrom)
     log.pr("Поиск файлов в " + pathFrom)
@@ -49,19 +56,19 @@ def scan(pathFrom, unknown = False):
         log.pr("\nКоличество файлов: " + str(len(__audio_list))) 
     except:
         log.pr("Err 2 ","e")
-        sys.exit(1)
+        return False
     if len(__audio_list) < 1:
-        sys.exit(1)
+        return False
+    return True
         
 
 
 def sort(path):
     log.pr("Создание каталогов и перемещение файлов...")
-    try:
-        os.chdir(path)
-    except:
-        log.pr("Err 1 (Ошибка пути)","e")
-        sys.exit(1)
+    
+    if not movePath(path):
+        return False
+
     try:
         sep = os.sep
         for i in __audio_list:
@@ -84,3 +91,6 @@ def sort(path):
         log.pr("Готово","o")
     except(Exception):
         log.pr("err 3","e")
+        return False
+    
+    return True

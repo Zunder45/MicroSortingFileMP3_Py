@@ -12,14 +12,21 @@ __audio_list = []
 def clear():
     __audio_list.clear() 
 
-def scan( pathFrom, unknown = False):
-    
-    try:
-        os.chdir(pathFrom)
-    except:
+
+def movePath(path):
+    if os.path.exists(path):
+        os.chdir(path)
+        return True
+    else: 
         log.pr("Err 1 (Ошибка пути)","e")
-        sys.exit(1)
-        
+        return False
+
+
+
+def scan( pathFrom, unknown = False):
+    if not movePath(pathFrom):
+        return False
+
     files = os.listdir(pathFrom)
     log.pr("Поиск файлов в " + pathFrom)
     try:
@@ -56,7 +63,6 @@ def scan( pathFrom, unknown = False):
         
     except:
         log.pr("Err 2 ","e")
-        sys.exit(1)
         
     if len(__audio_list) < 1:
         return False
@@ -64,13 +70,12 @@ def scan( pathFrom, unknown = False):
         
 
 
-def sort( path):
+def sort(path):
     log.pr("Создание каталогов и перемещение файлов...")
-    try:
-        os.chdir(path)
-    except:
-        log.pr("Err 1 (Ошибка пути)", "e")
-        sys.exit(1)
+    
+    if not movePath(path):
+        return False
+
     try:
         for i in __audio_list:
             name = i['fileName']
@@ -93,6 +98,7 @@ def sort( path):
         log.pr("Готово", "o")
     except(Exception):
         log.pr("err 3", "e")
-        sys.exit(1)
+        return False
+
     __audio_list.clear()
     return True

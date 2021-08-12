@@ -45,3 +45,7 @@ def run(pathFromDir,pathDirInput = ""):
 
     window.close() 
 
+
+if __name__ == "__main__":
+    path = os.getcwd()
+    run(path,path)
