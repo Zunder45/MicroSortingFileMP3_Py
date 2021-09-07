@@ -7,7 +7,7 @@ from colorama import Fore
 out = "c"
 nocolor = False
 
-def __switch(message,typeMessage):
+def __switch(message,typeMessage, popup = False):
         dictPrint = {
             "n": message,
             "o": Fore.LIGHTGREEN_EX + "[OK]  " + message + Fore.RESET,
@@ -20,10 +20,14 @@ def __switch(message,typeMessage):
             "a": "[ATTENTION]  " + message,
             "e": "[ERROR]  " + message
         }
-        if not nocolor:
-            return dictPrint[typeMessage]
-        else:
+
+        if popup:
             return dictPrintNoColor[typeMessage]
+        else:
+            if not nocolor:
+                return dictPrint[typeMessage]
+            else:
+                return dictPrintNoColor[typeMessage]
 
 
 
@@ -34,4 +38,4 @@ def pr(message,typeMessage = "n"):
 
     
 def pop(message,typeMessage = "n"):
-    sg.popup(__switch(message,typeMessage))
+    sg.popup(__switch(message,typeMessage, popup = True))

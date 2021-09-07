@@ -81,11 +81,11 @@ def sort(path):
             name = i['fileName']
             art = i['artist']
             pathName = i['pathName']
-            try:
+
+            if os.path.exists(os.path.join(path,art)):
                 os.replace(pathName, os.path.join(path,art,name))
                 log.pr(pathName + " ---> " + art, "o")
-            except(Exception):
-                
+            else:
                 try:
                     os.mkdir(os.path.join(path,art))
                     log.pr("Создан каталог: " + os.path.join(path,art), "o")

@@ -9,6 +9,8 @@ def popup_selectFolder(message):
 
 
 def run(pathFromDir,pathDirInput = ""):
+
+
     layout = [[sg.Text('Выберите путь, где лежат файлы:',background_color="#1E1E1E")], 
             [sg.InputText(pathFromDir,key="fromDir",background_color="#3C3C3C",text_color="#D2D2D2",justification='center'),sg.FolderBrowse("Выбрать",button_color="#252526")],
             [sg.Text('Выберите путь к каталогу, где будет сортировака:',background_color="#1E1E1E")], 
