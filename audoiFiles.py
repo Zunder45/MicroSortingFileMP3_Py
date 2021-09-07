@@ -33,16 +33,16 @@ def scan( pathFrom, unknown = False):
         for f in files:
             fp = os.path.join(pathFrom,f)
             
-            if os.path.isdir(fp) != True and os.path.splitext(fp)[1] == ".mp3": # если это файл и имеет раширение .mp3
+            if os.path.isdir(fp) != True and os.path.splitext(fp)[1] == ".mp3": 
                 af = eyed3.load(fp)
                 try:
-                    if af.tag.artist != None: # если в фаеле указано имя артиста 
+                    if af.tag.artist != None: 
                         auFl = {
                             'artist':af.tag.artist,
                             'fileName':f,
                             'pathName':fp
                         }
-                        __audio_list.append(auFl) # добавляем его в массив
+                        __audio_list.append(auFl)
                         log.pr(auFl['pathName']+"   ["+auFl['artist']+"]","o")
 
                     else:
@@ -93,8 +93,6 @@ def sort(path):
                     log.pr(pathName + " ---> " + art, "o")
                 except(Exception):
                     log.pr(pathName + "    -x->   " + art, "e")
-
-
         log.pr("Готово", "o")
     except(Exception):
         log.pr("err 3", "e")

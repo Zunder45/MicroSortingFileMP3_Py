@@ -4,7 +4,6 @@ from colorama import Fore
 
 
 
-out = "c"
 nocolor = False
 
 def __switch(message,typeMessage, popup = False):

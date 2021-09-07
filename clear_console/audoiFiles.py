@@ -1,4 +1,4 @@
-import os, sys,eyed3
+import os, eyed3
 
 import logg as log
 
@@ -29,16 +29,16 @@ def scan(pathFrom, unknown = False):
         for f in files:
             sep = os.sep
             fp = pathFrom+sep+f
-            if os.path.isdir(fp) != True and os.path.splitext(fp)[1] == ".mp3": # если это файл и имеет раширение .mp3
+            if os.path.isdir(fp) != True and os.path.splitext(fp)[1] == ".mp3": 
                 af = eyed3.load(fp)
                 try:
-                    if af.tag.artist != None: # если в фаеле указано имя артиста 
+                    if af.tag.artist != None: 
                         auFl = {
                             'artist':af.tag.artist,
                             'fileName':f,
                             'pathName':fp
-                        } # создаем словарь 
-                        __audio_list.append(auFl) # добавляем его в массив
+                        } 
+                        __audio_list.append(auFl) 
                         log.pr(auFl['pathName']+"   ["+auFl['artist']+"]","o")
                     else:
                         if unknown:
@@ -70,24 +70,21 @@ def sort(path):
         return False
 
     try:
-        sep = os.sep
         for i in __audio_list:
             name = i['fileName']
             art = i['artist']
             pathName = i['pathName'] 
-            try:
+            if os.path.exists(os.path.join(path,art)):
                 os.replace(pathName,os.path.join(path,art,name))
                 log.pr(pathName + " ---> " + art,"o")
-            except(Exception):
+            else:
                 try:
-                    os.mkdir(path+sep+art)
+                    os.mkdir(os.path.join(path,art))
                     log.pr("Создан каталог: " + os.path.join(path,art),"o")
-                    os.replace(pathName,path + os.path.join(path,art,name))
+                    os.replace(pathName,os.path.join(path,art,name))
                     log.pr(pathName + " ---> " + art,"o")
                 except(Exception):
                     log.pr(pathName + "    -x->   " + art,"e")
-
-
         log.pr("Готово","o")
     except(Exception):
         log.pr("err 3","e")
