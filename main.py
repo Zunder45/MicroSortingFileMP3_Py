@@ -9,7 +9,7 @@ import gui
 def main():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("-p","--path", help="Directory path")# добавление аргументов
+    parser.add_argument("-p","--path", help="Путь к каталогу, где будут сортироватся файлы")# добавление аргументов
     parser.add_argument("-f",help="Каталог, из которого будут взяты файлы")
     parser.add_argument("-u","--unknown",help="Брать файлы с неизвестными исполнителями",action="store_const", const="True")
     parser.add_argument("-s",help="Пропускать 'Продолжить'",action="store_const", const="True")
@@ -26,22 +26,21 @@ def main():
     if arg.path == None: # Если флаг -p пусть то 
         path = os.getcwd() # Получение пути текущего каталога
     elif arg.path == "?":
-        path = gui.popup_selectFolder("Путь где будет сортировка")
+        path = gui.popup_selectFolder("Путь где будет сортировка (-p)")
     else:
         path = arg.path
 
     if arg.f == None:
         pathFrom = path
     elif arg.f == "?":
-        pathFrom = gui.popup_selectFolder("Путь к файлам")
+        pathFrom = gui.popup_selectFolder("Путь к файлам (-f)")
     else:
         pathFrom = arg.f
 
 
 
-
     if arg.gui == None:
-        if af.scan(pathFrom =  pathFrom,unknown= arg.unknown):
+        if af.scan(pathFrom =  pathFrom,unknown = arg.unknown):
             if not arg.s:
                 while(True):
                         print("\nПродолжить?(д/н)") 

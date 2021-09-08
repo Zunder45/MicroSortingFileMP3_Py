@@ -5,7 +5,7 @@ import logg as Log
 
 
 def popup_selectFolder(message):
-    sg.popup_get_folder(message)
+    return sg.popup_get_folder(message)
 
 
 def run(pathFromDir,pathDirInput = ""):
@@ -28,7 +28,7 @@ def run(pathFromDir,pathDirInput = ""):
             break
         if event == 'Начать':
             if values["pathDir"] != "":
-                Log.out = "g"
+                
 
                 if audoiFiles.scan(values["fromDir"], values["checkAutor"]):
             
